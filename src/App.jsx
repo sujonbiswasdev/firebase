@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Link } from 'react-router'
+import Logout from './components/Logout'
+import AuthState from './components/AuthState'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,6 +16,8 @@ function App() {
           <li ><Link to="/register" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Register</Link></li>
           <li ><Link to="/login" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Login</Link></li></ul>
       </nav>
+      <Logout/>
+      <AuthState/>
     </div>
   )
 }
