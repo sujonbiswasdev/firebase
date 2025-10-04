@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Link } from 'react-router'
 import Logout from './components/Logout'
-import AuthState from './components/AuthState'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,10 +13,12 @@ function App() {
       <nav className='py-28 mt-16 bg-slate-400'>
         <ul className='flex items-center space-x-4 justify-center'>
           <li ><Link to="/register" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Register</Link></li>
-          <li ><Link to="/login" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Login</Link></li></ul>
+          <li ><Link to="/login" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Login</Link></li>
+          <li ><Link to="/dashboard" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>dashboard</Link></li>
+          <li ><Link to="/blog" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Blog</Link></li>
+          </ul>
       </nav>
-      <Logout/>
-      <AuthState/>
+      <Logout />
     </div>
   )
 }

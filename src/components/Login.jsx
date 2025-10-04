@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import app from '../firebase/firebase.config';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 const Login = () => {
@@ -41,6 +41,39 @@ const Login = () => {
         console.log(error.message)
       });
   }
+
+  const handleFacebookLogin = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        navigate("/")
+      })
+      .catch((error) => {
+        console.log(error.message)
+      });
+
+  }
+
+  // github login
+
+  const handlegithubLogin=()=>{
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider)
+  .then((result) => {
+
+    const user = result.user.displayName;
+    console.log(user)
+    navigate("/")
+
+   
+  }).catch((error) => {
+    
+    const errorMessage = error.message;
+    console.log(errorMessage)
+  });
+
+  }
   return (
     <div className='flex items-center justify-center min-h-screen bg-red-100'>
       <div className='w-full max-w-md p-8 space-y-6 bg-white rounded-lg'>
@@ -65,8 +98,8 @@ const Login = () => {
           <p>Or login with</p>
           <div className='flex items-center justify-center space-x-3' >
             <button onClick={handleGoogleLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-red-500 rounded hover:bg-red-700 cursor-pointer' ><FaGoogle /><span>Google</span></button>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700 cursor-pointer'><FaFacebook /> <span>facebook</span></button>
-            <button className='flex items-center px-4 py-2 space-x-2 text-white bg-gray-800 rounded hover:bg-gray-900 cursor-pointer'><FaGithub /><span>Github</span></button>
+            <button onClick={handleFacebookLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-blue-500 rounded hover:bg-blue-700 cursor-pointer'><FaFacebook /> <span>facebook</span></button>
+            <button onClick={handlegithubLogin} className='flex items-center px-4 py-2 space-x-2 text-white bg-gray-800 rounded hover:bg-gray-900 cursor-pointer'><FaGithub /><span>Github</span></button>
           </div>
 
         </div>

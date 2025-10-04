@@ -7,7 +7,7 @@ const AuthState = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                const uid = user.email;
+                const uid =user.displayName;
                 setuser(uid)
             } else {
                console.log("user not found")
@@ -17,7 +17,7 @@ const AuthState = () => {
     }, [auth])
     return (
         <div>
-            {user ? <p>welcome {user}</p> : <p>please login here</p>}
+            {user ? <p>welcome : <span className='text-green-700'>{user}</span></p> : <p>please login here</p>}
         </div>
     )
 }
