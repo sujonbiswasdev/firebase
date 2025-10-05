@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase.config';
 const AuthContext = createContext();
@@ -12,15 +12,30 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setloading(false)
             if (user) {
-                console.log("auth provider user : ", user)
                 setcurrentuser(user)
             } else {
-                console.log("user not found")
+                setcurrentuser(null)
             }
         });
         return () => unsubscribe()
-    }, [])
-     const value = { currentuser,loding }
+    }, [auth])
+    // update profile funtionality
+    const updateUserProfile = async(newprofile)=>{
+        if(currentuser){
+            try {
+                await updateProfile(currentuser,newprofile)
+                setcurrentuser((preuser)=>({
+                    ...preuser,
+                    ...newprofile
+                }))
+            } catch (error) {
+                console.log("error updating profile")
+            }
+        }else{
+            console.log("user eror")
+        }
+    }
+     const value = { currentuser,loding,updateUserProfile}
     return (
         <section className="section">
             <AuthContext.Provider value={value}>

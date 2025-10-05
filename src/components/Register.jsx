@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import app from '../firebase/firebase.config';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 const Register = () => {
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
     const [error, seterror] = useState('')
+    const [message, setmessage] = useState("")
     const navigate = useNavigate()
     const auth = getAuth(app);
+
     const handleRegister = (e) => {
         console.log("sign up button clicked")
         e.preventDefault();
@@ -16,9 +18,19 @@ const Register = () => {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                console.log("user signed ", user)
-                alert("Register successfull")
-                navigate("/login")
+                sendEmailVerification(user)
+                    .then(() => {
+                        setmessage("Resgistasion sucessfull! A varification email has been sent to your email address")
+                        alert("please check your gmail")
+                        console.log(user.email)
+                    }).catch((error)=>{console.log("error page:",error)});
+
+                setTimeout(() => {
+                    console.log("user signed ", user)
+                    alert("Register successfull")
+                    navigate("/login")
+                }, 5000)
+
 
             })
             .catch((error) => {
@@ -46,8 +58,10 @@ const Register = () => {
                         <input onChange={(e) => setpassword(e.target.value)} value={password} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent' type="password" name='password' placeholder='enter your password' id='password' />
                     </div>
                     <p className='text-red-500'>{error && error}</p>
+                    <p className='text-green-700'>{message && message}</p>
                     <button type='submit' className='w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700'>sign up</button>
                 </form>
+
 
                 {/*  social login*/}
 
@@ -60,6 +74,7 @@ const Register = () => {
                     </div>
 
                 </div>
+
 
                 <p className='text-sm text-center text-gray-600'>Already have an account? please <Link to={"/login"} className='text-blue-600 hover:underline'>log in</Link></p>
             </div>

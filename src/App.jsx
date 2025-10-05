@@ -16,7 +16,13 @@ function App() {
           <li ><Link to="/login" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Login</Link></li>
           <li ><Link to="/dashboard" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>dashboard</Link></li>
           <li ><Link to="/blog" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Blog</Link></li>
-          </ul>
+          <li ><Link to="/profile" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>Profile</Link></li>
+          <li ><Link to="/reset-password" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>reset</Link></li>
+          <li ><Link to="/reset-password-email" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>send email</Link></li>
+            <li ><Link to="/password-less-signin" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>send singin</Link></li>
+
+            <li ><Link to="/finish-signup" className='px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-800'>complete singin</Link></li>
+        </ul>
       </nav>
       <Logout />
     </div>
